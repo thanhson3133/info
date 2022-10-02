@@ -52,7 +52,7 @@ export default function App() {
         </h1>
       </div>
       <div className="text-center">
-        <div className="salary salary_title uppercase">salary welcome in</div>
+        <div className="salary salary_title ">salary welcome in</div>
       </div>
       {/* <CountdownTimer targetDate={dateTimeAfterDays} /> */}
     </div>
