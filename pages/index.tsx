@@ -54,7 +54,7 @@ export default function App() {
       <div className="text-center">
         <div className="salary salary_title ">salary welcome in</div>
       </div>
-      {/* <CountdownTimer targetDate={dateTimeAfterDays} /> */}
+      <CountdownTimer targetDate={dateTimeAfterDays} />
     </div>
   );
 }
