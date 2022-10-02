@@ -1,9 +1,48 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import React from "react";
+import CountdownTimer from "./home";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+export default function App() {
+  const dateNow: dayjs.Dayjs = dayjs();
+  let dateNowFormat: string | number = dayjs(dateNow).format("DD");
+  const [dateTimeAfterDays, setDateTimeAfterDays] = useState<number>();
+  const [dayOfMonth, setDayOfMonth] = useState<dayjs.Dayjs>(
+    dayjs(
+      new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getDate()
+      )
+    ).date(15)
+  );
 
-const Home: NextPage = () => {
+  useEffect(() => {
+    dateNowFormat > "15" &&
+      setDayOfMonth(
+        dayjs(
+          new Date(
+            new Date().getFullYear(),
+            new Date().getMonth() + 1,
+            new Date().getDate()
+          )
+        ).date(15)
+      );
+  }, [dateNowFormat]);
+
+  useEffect(() => {
+    const nowDate = dayjs(dateNow);
+    const lastMonth = dayjs(dayOfMonth);
+    let date = lastMonth.diff(nowDate);
+
+    const DAYS_IN_MS = date; //ms
+
+    const NOW_IN_MS = new Date().getTime();
+
+    setDateTimeAfterDays(NOW_IN_MS + DAYS_IN_MS);
+  }, [dateNow, dayOfMonth]);
+
+  // console.log("date", date / (24 * 60 * 60 * 1000));
+
   return (
     <div className=" home-page">
       <div className="title text-center">
@@ -18,6 +57,4 @@ const Home: NextPage = () => {
       {/* <CountdownTimer targetDate={dateTimeAfterDays} /> */}
     </div>
   );
-};
-
-export default Home;
+}
